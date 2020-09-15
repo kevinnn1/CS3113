@@ -1,2 +1,0 @@
-C:\Users\kevin\Desktop\School\Game Programming\Project1\Debug\SDLProject.exe
-C:\Users\kevin\Desktop\School\Game Programming\Project1\Debug\SDLProject.pdb
