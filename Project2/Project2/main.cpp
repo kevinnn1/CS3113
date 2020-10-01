@@ -129,6 +129,7 @@ void ProcessInput() {
     if (keys[SDL_SCANCODE_SPACE] && ballPosition.x == 0 && ballPosition.y == 0) {
         ballMovement.x = 4;
         ballMovement.y = 2;
+
     }
 }
 
@@ -190,6 +191,8 @@ void Update() {
         ballPosition.y = 0;
         ballMovement.x = 0;
         ballMovement.y = 0;
+        leftPaddlePosition.y = 0;
+        rightPaddlePosition.y = 0;
     }
 
 }
