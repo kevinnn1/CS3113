@@ -18,26 +18,27 @@ SDL_Window* displayWindow;
 bool gameIsRunning = true;
 
 ShaderProgram program;
-glm::mat4 viewMatrix, modelMatrix, modelMatrix2, modelMatrix3, modelMatrix4, projectionMatrix;
-GLuint playerTextureID, playerTextureID2, playerTextureID3, playerTextureID4;
+glm::mat4 viewMatrix, projectionMatrix, leftPong, rightPong, ball;
+GLuint pongTextureID, ballTextureID;
 
 
 
 GLuint LoadTexture(const char* filePath) {
-    int w, h, n;    
-    unsigned char* image = stbi_load(filePath, &w, &h, &n, STBI_rgb_alpha);    
-    if (image == NULL) { 
+    int w, h, n;
+    unsigned char* image = stbi_load(filePath, &w, &h, &n, STBI_rgb_alpha);
+    if (image == NULL) {
         std::cout << "Unable to load image. Make sure the path is correct\n";
-        assert(false); 
-    }    
-    GLuint textureID; 
-    glGenTextures(1, &textureID); 
-    glBindTexture(GL_TEXTURE_2D, textureID); 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image); 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); 
-    stbi_image_free(image);    
-    return textureID; }
+        assert(false);
+    }
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    stbi_image_free(image);
+    return textureID;
+}
 
 
 void Initialize() {
@@ -55,16 +56,12 @@ void Initialize() {
     program.Load("shaders/vertex_textured.glsl", "shaders/fragment_textured.glsl");
 
     viewMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, -5.0f, 0.0f));
-    modelMatrix = glm::scale(modelMatrix, glm::vec3(2.0f, 2.0f, 0.0f));
-    modelMatrix2 = glm::mat4(1.0f);
-    modelMatrix2 = glm::translate(modelMatrix2, glm::vec3(3.0f, 2.0f, 0.0f));
-    modelMatrix3 = glm::mat4(1.0f);
-    modelMatrix3 = glm::translate(modelMatrix3, glm::vec3(0.0f, -3.7f, 0.0f));
-    modelMatrix3 = glm::scale(modelMatrix3, glm::vec3(4.0f, 4.0f, 0.0f));
-    modelMatrix4 = glm::mat4(1.0f);
-    modelMatrix4 = glm::translate(modelMatrix4, glm::vec3(-6.0f, -1.0f, 0.0f));
+    leftPong = glm::mat4(1.0f);
+    leftPong = glm::translate(leftPong, glm::vec3(0.0f, -5.0f, 0.0f));
+    rightPong = glm::mat4(1.0f);
+    rightPong = glm::translate(rightPong, glm::vec3(0.0f, 5.0f, 0.0f));
+    ball = glm::mat4(1.0f);
+    ball = glm::translate(ball, glm::vec3(0.0f, 0.0f, 0.0f));
     projectionMatrix = glm::ortho(-5.0f, 5.0f, -3.75f, 3.75f, -1.0f, 1.0f);
 
     program.SetProjectionMatrix(projectionMatrix);
@@ -78,11 +75,8 @@ void Initialize() {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    playerTextureID = LoadTexture("zephyr.png");
-    playerTextureID2 = LoadTexture("asteroid.png");
-    playerTextureID3 = LoadTexture("earth.png");
-    playerTextureID4 = LoadTexture("ufo.png");
-
+    pongTextureID = LoadTexture("pong.png");
+    ballTextureID = LoadTexture("ball.png");
 
 }
 
@@ -114,7 +108,6 @@ void Update() {
     modelMatrix3 = glm::rotate(modelMatrix3, glm::radians(playerRotate), glm::vec3(0.0f, 0.0f, 1.0f));
     modelMatrix4 = glm::translate(modelMatrix4, glm::vec3(playerX, 0.0f, 0.0f));
 
-
 }
 
 void draw(glm::mat4 model, GLuint textureID) {
@@ -123,28 +116,29 @@ void draw(glm::mat4 model, GLuint textureID) {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void Render() { 
-    glClear(GL_COLOR_BUFFER_BIT);       
+void Render() {
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    float vertices[] = { -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 
-                         -0.5, -0.5, 0.5, 0.5, -0.5, 0.5 };    
-    float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 
-                          0.0, 1.0, 1.0, 0.0, 0.0, 0.0 }; 
+    float vertices[] = { -0.5, -0.5, 0.5, -0.5, 0.5, 0.5,
+                         -0.5, -0.5, 0.5, 0.5, -0.5, 0.5 };
+    float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0,
+                          0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };
 
-    glVertexAttribPointer(program.positionAttribute, 2, GL_FLOAT, false, 0, vertices); 
-    glEnableVertexAttribArray(program.positionAttribute); 
+    glVertexAttribPointer(program.positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(program.positionAttribute);
 
-    glVertexAttribPointer(program.texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords); 
-    glEnableVertexAttribArray(program.texCoordAttribute); 
+    glVertexAttribPointer(program.texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(program.texCoordAttribute);
 
-    draw(modelMatrix, playerTextureID);
-    draw(modelMatrix2, playerTextureID2);
-    draw(modelMatrix3, playerTextureID3);
-    draw(modelMatrix4, playerTextureID4);
+    draw(leftPong, pongTextureID);
+    draw(rightPong, pongTextureID);
+    draw(ball, ballTextureID);
 
 
-    glDisableVertexAttribArray(program.positionAttribute);    
-    glDisableVertexAttribArray(program.texCoordAttribute); 
+
+
+    glDisableVertexAttribArray(program.positionAttribute);
+    glDisableVertexAttribArray(program.texCoordAttribute);
     SDL_GL_SwapWindow(displayWindow);
 
 

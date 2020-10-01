@@ -1,0 +1,6 @@
+﻿  main.cpp
+C:\Users\kevin\Desktop\School\Game Programming\Project2\Project2\main.cpp(154,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\kevin\Desktop\School\Game Programming\Project2\Project2\main.cpp(155,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\kevin\Desktop\School\Game Programming\Project2\Project2\main.cpp(161,35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\kevin\Desktop\School\Game Programming\Project2\Project2\main.cpp(162,35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Project2.vcxproj -> C:\Users\kevin\Desktop\School\Game Programming\Project2\Debug\Project2.exe
