@@ -25,7 +25,7 @@ glm::vec3 leftPaddleMovement = glm::vec3(0, 0, 0);
 glm::vec3 rightPaddleMovement = glm::vec3(0, 0, 0);
 glm::vec3 leftPaddlePosition = glm::vec3(-5.0f, 0, 0);
 glm::vec3 rightPaddlePosition = glm::vec3(5.0f, 0, 0);
-glm::vec3 ballMovement = glm::vec3(4, 2, 0);
+glm::vec3 ballMovement = glm::vec3(0, 0, 0);
 glm::vec3 ballPosition = glm::vec3(0, 0, 0);
 
 
