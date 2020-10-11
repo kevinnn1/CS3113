@@ -34,20 +34,21 @@ float ballSpeed = 1.0f;
 
 
 GLuint LoadTexture(const char* filePath) {
-    int w, h, n;    
-    unsigned char* image = stbi_load(filePath, &w, &h, &n, STBI_rgb_alpha);    
-    if (image == NULL) { 
+    int w, h, n;
+    unsigned char* image = stbi_load(filePath, &w, &h, &n, STBI_rgb_alpha);
+    if (image == NULL) {
         std::cout << "Unable to load image. Make sure the path is correct\n";
-        assert(false); 
-    }    
-    GLuint textureID; 
-    glGenTextures(1, &textureID); 
-    glBindTexture(GL_TEXTURE_2D, textureID); 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image); 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); 
-    stbi_image_free(image);    
-    return textureID; }
+        assert(false);
+    }
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    stbi_image_free(image);
+    return textureID;
+}
 
 
 void Initialize() {
@@ -94,30 +95,30 @@ void ProcessInput() {
     leftPaddleMovement = glm::vec3(0);
     rightPaddleMovement = glm::vec3(0);
 
-    SDL_Event event;    
+    SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
-            case SDL_QUIT:            
-            case SDL_WINDOWEVENT_CLOSE:                
-                gameIsRunning = false;                
-                break;            
-            case SDL_KEYDOWN:                
-                switch (event.key.keysym.sym) {
-                    case SDLK_LEFT:                        
-                        break;                    
-                    case SDLK_RIGHT:                        
-                        break;                    
-                    case SDLK_SPACE:                        
-                        break;                
-                }                
-                break;        
-        }    
+        case SDL_QUIT:
+        case SDL_WINDOWEVENT_CLOSE:
+            gameIsRunning = false;
+            break;
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+            case SDLK_LEFT:
+                break;
+            case SDLK_RIGHT:
+                break;
+            case SDLK_SPACE:
+                break;
+            }
+            break;
+        }
     }
-    const Uint8* keys = SDL_GetKeyboardState(NULL); 
-    if (keys[SDL_SCANCODE_W] && leftPaddlePosition.y < 2.75f ) { 
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
+    if (keys[SDL_SCANCODE_W] && leftPaddlePosition.y < 2.75f) {
         leftPaddleMovement.y = 4.0f;
     }
-    else if (keys[SDL_SCANCODE_S] && leftPaddlePosition.y > -2.75f) { 
+    else if (keys[SDL_SCANCODE_S] && leftPaddlePosition.y > -2.75f) {
         leftPaddleMovement.y = -4.0f;
     }
     if (keys[SDL_SCANCODE_UP] && rightPaddlePosition.y < 2.75f) {
@@ -203,22 +204,22 @@ void draw(glm::mat4 model, GLuint textureID) {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void Render() { 
-    glClear(GL_COLOR_BUFFER_BIT);       
+void Render() {
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    float vertices[] = { -0.25, -1.0, 0.25, -1.0, 0.25, 1.0, 
+    float vertices[] = { -0.25, -1.0, 0.25, -1.0, 0.25, 1.0,
                          -0.25, -1.0, 0.25, 1.0, -0.25, 1.0 };
-    float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 
-                          0.0, 1.0, 1.0, 0.0, 0.0, 0.0 }; 
+    float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0,
+                          0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };
 
     float ballVertices[] = { -0.125, -0.125, 0.125, -0.125, 0.125, 0.125,
                              -0.125, -0.125, 0.125, 0.125, -0.125, 0.125 };
 
-    glVertexAttribPointer(program.positionAttribute, 2, GL_FLOAT, false, 0, vertices); 
-    glEnableVertexAttribArray(program.positionAttribute); 
+    glVertexAttribPointer(program.positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(program.positionAttribute);
 
-    glVertexAttribPointer(program.texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords); 
-    glEnableVertexAttribArray(program.texCoordAttribute); 
+    glVertexAttribPointer(program.texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(program.texCoordAttribute);
 
     draw(leftPaddle, pongTextureID);
     draw(rightPaddle, pongTextureID);
@@ -231,8 +232,8 @@ void Render() {
 
     draw(ball, ballTextureID);
 
-    glDisableVertexAttribArray(program.positionAttribute);    
-    glDisableVertexAttribArray(program.texCoordAttribute); 
+    glDisableVertexAttribArray(program.positionAttribute);
+    glDisableVertexAttribArray(program.texCoordAttribute);
     SDL_GL_SwapWindow(displayWindow);
 
 
