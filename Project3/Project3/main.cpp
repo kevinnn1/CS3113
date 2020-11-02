@@ -167,6 +167,7 @@ void ProcessInput() {
                 break;
 
             case SDLK_SPACE:
+                Initialize();
                 break;
             }
             break; // SDL_KEYDOWN
@@ -261,7 +262,7 @@ void Render() {
         state.platforms[i].Render(&program);
     }
     if (state.player->collidedWithPlatform) {
-        DrawText(&program, fontTextureID , "Mission Failed", 1, -0.65f, glm::vec3(-4.25f, 3, 0));
+        DrawText(&program, fontTextureID , "Tanver", 1, -0.65f, glm::vec3(-4.25f, 3, 0));
     }
     if (state.player->collidedWithSafePlatform) {
         DrawText(&program, fontTextureID, "Mission Successful", 1, -0.65f, glm::vec3(-4.25f, 3, 0));
