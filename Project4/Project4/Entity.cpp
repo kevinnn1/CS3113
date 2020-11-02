@@ -37,26 +37,26 @@ void Entity::CheckCollisionsY(Map* map) {
     else if (map->IsSolid(top_left, &penetration_x, &penetration_y) && velocity.y > 0) {        
         position.y -= penetration_y;        
         velocity.y = 0;        
-        collidedTop = true;    
+        collidedTopMap = true;    
     }    
     else if (map->IsSolid(top_right, &penetration_x, &penetration_y) && velocity.y > 0) {        
         position.y -= penetration_y;        
         velocity.y = 0;        
-        collidedTop = true;    
+        collidedTopMap = true;    
     }
     if (map->IsSolid(bottom, &penetration_x, &penetration_y) && velocity.y < 0) { 
         position.y += penetration_y;        
         velocity.y = 0;        
-        collidedBottom = true; 
+        collidedBottomMap = true; 
     }
     else if (map->IsSolid(bottom_left, &penetration_x, &penetration_y) && velocity.y < 0) { 
         position.y += penetration_y;        
         velocity.y = 0;        
-        collidedBottom = true; }
+        collidedBottomMap = true; }
     else if (map->IsSolid(bottom_right, &penetration_x, &penetration_y) && velocity.y < 0) { 
         position.y += penetration_y;        
         velocity.y = 0;        
-        collidedBottom = true; 
+        collidedBottomMap = true; 
     }
 }
 
@@ -69,12 +69,12 @@ void Entity::CheckCollisionsX(Map* map) {
     if (map->IsSolid(left, &penetration_x, &penetration_y) && velocity.x < 0) {        
         position.x += penetration_x;        
         velocity.x = 0;        
-        collidedLeft = true;    
+        collidedLeftMap = true;    
     }    
     if (map->IsSolid(right, &penetration_x, &penetration_y) && velocity.x > 0) {        
         position.x -= penetration_x;        
         velocity.x = 0;        
-        collidedRight = true;    
+        collidedRightMap = true;    
     }
 }
 
@@ -120,7 +120,7 @@ void Entity::CheckCollisionsX(Entity* objects, int objectCount) {
 
 int direction = -1;
 void Entity::AIWalker(Map* map) {
-    if (collidedLeft == true || collidedRight == true) {
+    if (collidedLeftMap == true || collidedRightMap == true) {
         direction = direction*-1;
     }
     movement = glm::vec3(direction, 0, 0);
@@ -129,7 +129,7 @@ void Entity::AIWalker(Map* map) {
 int count = 0;
 void Entity::AIJumper(Map* map) {
     movement = glm::vec3(0);
-    if (collidedBottom) {
+    if (collidedBottomMap) {
        jump = true;
     }
     if (jump) {
@@ -144,10 +144,10 @@ void Entity::AIJumper(Map* map) {
 
 void Entity::AIAttacker(Map* map) {
     movement = glm::vec3(0);
-    if (collidedLeft == true || collidedRight == true) {
+    if (collidedLeftMap == true || collidedRightMap == true) {
         direction = direction * -1;
     }
-    if (collidedBottom) {
+    if (collidedBottomMap) {
         jump = true;
     }
     if (jump) {
@@ -183,6 +183,12 @@ void Entity::Update(float deltaTime, Entity *entity, Entity* objects, int object
     collidedBottom = false;
     collidedLeft = false;
     collidedRight = false;
+
+    collidedTopMap = false;
+    collidedBottomMap = false;
+    collidedLeftMap = false;
+    collidedRightMap = false;
+
     if (animIndices != NULL) {
         if (glm::length(movement) != 0) {
             animTime += deltaTime;
@@ -211,24 +217,18 @@ void Entity::Update(float deltaTime, Entity *entity, Entity* objects, int object
     position.x += velocity.x * deltaTime;        // Move on X    
     CheckCollisionsX(map);    
     CheckCollisionsX(objects, objectCount);    // Fix if needed
-    if (entityType == PLAYER && checkCollision(objects)) {
-            if (collidedLeft) {
-                isActive = false;
-            }
-            if (collidedRight) {
-                isActive = false;
-            }
-            if (collidedTop) {
-                isActive = false;
-            }
-            if (collidedBottom) {
-                objects->isActive = false;
-            }
-    }
+
 
     if (entityType == ENEMY) {
         AI(map);
-
+        if (collidedTop) {
+            isActive = false;
+        }
+    }
+    if (entityType == PLAYER) {
+        if (collidedLeft || collidedRight || collidedTop) {
+                isActive = false;
+        }
     }
 
     modelMatrix = glm::mat4(1.0f);

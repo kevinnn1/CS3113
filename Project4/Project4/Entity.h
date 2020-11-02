@@ -53,6 +53,10 @@ public:
     bool collidedLeft = false;
     bool collidedRight = false;
 
+    bool collidedTopMap = false;
+    bool collidedBottomMap = false;
+    bool collidedLeftMap = false;
+    bool collidedRightMap = false;
     
     Entity();
     bool checkCollision(Entity *other);

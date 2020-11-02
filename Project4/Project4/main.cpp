@@ -21,11 +21,11 @@
 unsigned int level1_data[] ={   3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
                                 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
                                 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
-                                3, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
+                                3, 0, 0, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
                                 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
-                                3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 3,
-                                3, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3,
-                                3, 1, 1, 1, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3,
+                                3, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 3,
+                                3, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3,
+                                3, 1, 1, 1, 1, 0, 0, 2, 2, 2, 2, 2, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3,
 };
 
 struct GameState {
@@ -73,15 +73,15 @@ void Initialize() {
     state.player->speed = 1.5f;
     state.player->jumpPower = 7.0f;
     state.player->textureID = Util::LoadTexture("player.png");
-    state.player->height = 0.9f;
-    state.player->width = 0.5f;
+    state.player->width = 0.5;
+    state.player->height = 0.5;
 
     state.enemies = new Entity[ENEMY_COUNT];
     GLuint enemyTextureID = Util::LoadTexture("flyingman.png");
     for (int i = 0; i < ENEMY_COUNT; ++i) {
         state.enemies[i].textureID = enemyTextureID;
-        state.enemies[i].width = 0.3f;
-        state.enemies[i].height = 0.2f;
+        state.enemies[i].width = 1;
+        state.enemies[i].height = 0.5;
         state.enemies[i].entityType = ENEMY;
         state.enemies[i].movement = glm::vec3(0);
         state.enemies[i].acceleration = glm::vec3(0, -9.81f, 0);
@@ -90,14 +90,14 @@ void Initialize() {
     state.enemies[0].aiType = JUMPER;
     state.enemies[0].aiState = JUMPING;
     state.enemies[0].jumpPower = 3.5f;
-    state.enemies[0].speed = 0.4f;
+    state.enemies[0].speed = 1.4f;
     state.enemies[0].position = glm::vec3(10, -2, 0);
 
     state.enemies[1].aiType = WALKER;
     state.enemies[1].aiState = WALKING;
     state.enemies[1].jumpPower = 3.5f;
     state.enemies[1].speed = 1.4f;
-    state.enemies[1].position = glm::vec3(4, -3, 0);
+    state.enemies[1].position = glm::vec3(7, -1, 0);
 
     state.enemies[2].aiType = ATTACKER;
     state.enemies[2].aiState = ATTACKING;
@@ -123,7 +123,7 @@ void ProcessInput() {
             case SDLK_RIGHT:
                 break;
             case SDLK_SPACE:
-                if (state.player->collidedBottom) {
+                if (state.player->collidedBottomMap) {
                     state.player->jump = true;
                 }
                 break;
@@ -188,7 +188,7 @@ void Render() {
         Util::DrawText(&program, fontTextureID, "You Win", 0.5f, -0.25f, glm::vec3(state.player->position.x, -0.5, 0));
     }
 
-    if (state.player->isActive == false) {
+    else if (state.player->isActive == false) {
         Util::DrawText(&program, fontTextureID, "You Lose", 0.5f, -0.25f, glm::vec3(state.player->position.x, -0.5, 0));
     }
     for (int i = 0; i < ENEMY_COUNT; ++i) {
