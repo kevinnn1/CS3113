@@ -35,6 +35,8 @@ glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 Scene* currentScene; 
 Scene* sceneList[4];
 
+int currentLives = 3;
+
 void SwitchToScene(Scene* scene) { 
     currentScene = scene;    
     currentScene->Initialize(); 
@@ -162,11 +164,13 @@ int main(int argc, char* argv[]) {
         if (currentScene != sceneList[0]) {
             Update();
         }
-        if (currentScene->state.nextScene >= 0) {
+        if (currentScene->state.nextScene > 0) {
             if (currentScene == sceneList[1]) {
+                sceneList[2]->currentLives = sceneList[1]->currentLives;
                 SwitchToScene(sceneList[2]);
             }
             else if (currentScene == sceneList[2]) {
+                sceneList[3]->currentLives = sceneList[2]->currentLives;
                 SwitchToScene(sceneList[3]);
             }
         }

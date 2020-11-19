@@ -1,4 +1,6 @@
 #include "Entity.h"
+#include <chrono>
+#include <thread>
 
 Entity::Entity()
 {
@@ -12,7 +14,10 @@ Entity::Entity()
 
 bool Entity::checkCollision(Entity* other) {
     if (other == this)  return false; 
-    if (isActive == false || other->isActive == false) return false;
+    std::this_thread::sleep_for(std::chrono::nanoseconds(1000));
+    if (isActive == false || other->isActive == false) {
+        return false;
+    }
     float xDist = fabs(position.x - other->position.x) - ((width + (other->width)) / 2.0f);
     float yDist = fabs(position.y - other->position.y) - ((height + (other->height)) / 2.0f);
     return (xDist < 0 && yDist < 0);
@@ -175,15 +180,7 @@ void Entity::Update(float deltaTime, Entity *entity, Entity* objects, int object
     if (isActive == false) {
         return;
     }
-    if (playerLives == 0) {
-        isActive = false;
-    }
     if (position.y < -10) {
-        for (int i = 0; i < objectCount; i++) {
-            objects[i].isActive = true;
-        }
-        position = glm::vec3(7, -3, 0);
-        playerLives--;
         isActive = false;
     }
     collidedTop = false;
@@ -234,11 +231,7 @@ void Entity::Update(float deltaTime, Entity *entity, Entity* objects, int object
     }
     if (entityType == PLAYER) {
         if (collidedLeft || collidedRight || collidedTop) {
-            playerLives--;
             isActive = false;
-            for (int i = 0; i < objectCount; i++) {
-                objects[i].isActive = true;
-            }
         }
     }
 

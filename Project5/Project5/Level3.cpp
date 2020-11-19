@@ -9,18 +9,18 @@
 
 #define LEVEL3_WIDTH 70
 #define LEVEL3_HEIGHT 8
-#define LEVEL3_ENEMY_COUNT 3
+#define LEVEL3_ENEMY_COUNT 6
 
 Mix_Music* level3Music;
 
 unsigned int level3_data[] = {  0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
                                 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
                                 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                                0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                                0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                                0, 0, 0, 3, 3, 3, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                                0, 0, 0, 3, 3, 3, 0, 1, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                                0, 0, 0, 3, 3, 3, 1, 2, 2, 2, 2, 2, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+                                0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+                                0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+                                0, 0, 0, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+                                0, 0, 0, 3, 3, 3, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3,
+                                0, 0, 0, 3, 3, 3, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3
 };
 
 void Level3::Initialize() {
@@ -61,19 +61,37 @@ void Level3::Initialize() {
     state.enemies[0].aiState = JUMPING;
     state.enemies[0].jumpPower = 3.5f;
     state.enemies[0].speed = 1.4f;
-    state.enemies[0].position = glm::vec3(10, -2, 0);
+    state.enemies[0].position = glm::vec3(15, -2, 0);
 
-    state.enemies[1].aiType = WALKER;
-    state.enemies[1].aiState = WALKING;
+    state.enemies[1].aiType = JUMPER;
+    state.enemies[1].aiState = JUMPING;
     state.enemies[1].jumpPower = 3.5f;
     state.enemies[1].speed = 1.4f;
-    state.enemies[1].position = glm::vec3(7, -1, 0);
+    state.enemies[1].position = glm::vec3(25, -2, 0);
 
-    state.enemies[2].aiType = ATTACKER;
-    state.enemies[2].aiState = ATTACKING;
+    state.enemies[2].aiType = JUMPER;
+    state.enemies[2].aiState = JUMPING;
     state.enemies[2].jumpPower = 6.5f;
     state.enemies[2].speed = 1.4f;
-    state.enemies[2].position = glm::vec3(4, -2, 0);
+    state.enemies[2].position = glm::vec3(31, -2, 0);
+
+    state.enemies[3].aiType = JUMPER;
+    state.enemies[3].aiState = JUMPING;
+    state.enemies[3].jumpPower = 6.5f;
+    state.enemies[3].speed = 1.4f;
+    state.enemies[3].position = glm::vec3(38, -2, 0);
+
+    state.enemies[4].aiType = JUMPER;
+    state.enemies[4].aiState = JUMPING;
+    state.enemies[4].jumpPower = 6.5f;
+    state.enemies[4].speed = 1.4f;
+    state.enemies[4].position = glm::vec3(43, -2, 0);
+
+    state.enemies[5].aiType = JUMPER;
+    state.enemies[5].aiState = JUMPING;
+    state.enemies[5].jumpPower = 3.5f;
+    state.enemies[5].speed = 1.4f;
+    state.enemies[5].position = glm::vec3(48, -2, 0);
 
 
 }
@@ -88,12 +106,23 @@ bool Level3::allEnemiesDead(GameState state) {
 }
 
 void Level3::Update(float deltaTime) {
-    state.player->Update(deltaTime, state.player, state.enemies, LEVEL3_ENEMY_COUNT, state.map);
     state.enemies->Update(deltaTime, state.enemies, state.player, LEVEL3_ENEMY_COUNT, state.map);
+    state.player->Update(deltaTime, state.player, state.enemies, LEVEL3_ENEMY_COUNT, state.map);
     for (int i = 0; i < LEVEL3_ENEMY_COUNT; i++) {
         state.enemies[i].Update(deltaTime, state.enemies, state.player, LEVEL3_ENEMY_COUNT, state.map);
     }
-
+    if (state.player->isActive == false) {
+        if (currentLives > 0) {
+            currentLives--;
+        }
+        if (currentLives > 0) {
+            state.player->isActive = true;
+            state.player->position = glm::vec3(7, -3, 0);
+            for (int i = 0; i < LEVEL3_ENEMY_COUNT; i++) {
+                state.enemies[i].isActive = true;
+            }
+        }
+    }
 }
 
 void Level3::Render(ShaderProgram* program) {
@@ -104,13 +133,14 @@ void Level3::Render(ShaderProgram* program) {
     }
     state.player->Render(program);
     state.map->Render(program);
-    if (state.player->position.x >= 60) {
-        Util::DrawText(program, fontTextureID, "You Win", 0.75f, -0.25f, glm::vec3(state.player->position.x, -2.5, 0));
+    if (state.player->position.x >= 55 && state.player->isActive == true) {
+        Util::DrawText(program, fontTextureID, "You Win", 1.0f, -0.25f, glm::vec3(state.player->position.x, -2.5, 0));
     }
 
-    else if (state.player->isActive == false) {
+    Util::DrawText(program, fontTextureID, "Lives: " + std::to_string(currentLives), 0.5f, -0.25f, glm::vec3(state.player->position.x - 2, -0.5, 0));
+    if (currentLives <= 0) {
+        state.player->isActive = false;
         Util::DrawText(program, fontTextureID, "You Lose", 1.0f, -0.25f, glm::vec3(state.player->position.x, -2.5, 0));
     }
-
 
 }
