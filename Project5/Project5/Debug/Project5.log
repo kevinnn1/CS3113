@@ -1,0 +1,7 @@
+﻿  Entity.cpp
+C:\Users\kevin\Desktop\School\Game Programming\Project5\Project5\Entity.cpp(156,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Project5.vcxproj -> C:\Users\kevin\Desktop\School\Game Programming\Project5\Debug\Project5.exe
