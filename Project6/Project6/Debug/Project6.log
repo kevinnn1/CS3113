@@ -1,0 +1,5 @@
+﻿  Level1.cpp
+C:\Users\kevin\Desktop\School\Game Programming\Project6\Project6\Level1.cpp(164,30): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\kevin\Desktop\School\Game Programming\Project6\Project6\Level1.cpp(165,31): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\kevin\Desktop\School\Game Programming\Project6\Project6\Level1.cpp(183,37): warning C4305: '=': truncation from 'double' to 'float'
+  Project6.vcxproj -> C:\Users\kevin\Desktop\School\Game Programming\Project6\Debug\Project6.exe
